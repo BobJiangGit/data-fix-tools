@@ -1,0 +1,47 @@
+<!-- Logback configuration. See http://logback.qos.ch/manual/index.html -->
+<configuration scan="true" scanPeriod="10 seconds">
+
+    <property name="app_name" value="ik-crm-fix-tools" />
+    <property name="log_home" value="logs/"/>
+
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>
+                %green(%date{yyyy-MM-dd HH:mm:ss.SSS}) %highlight(%-5level) %red([%-12(%thread)]) %cyan(%-35(%logger{16})) :[%line] %msg%n
+            </pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log_home}/${app_name}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>1024 MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>debug</level>
+        </filter>
+        <prudent>true</prudent>
+    </appender>
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %green(%date{yyyy-MM-dd HH:mm:ss.SSS}) %highlight(%-5level) %red([%-12(%thread)]) %cyan(%-35(%logger{16})) :[%line] %msg%n
+            </pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>debug</level>
+        </filter>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="file" />
+        <appender-ref ref="stdout" />
+    </root>
+
+    <logger name="org.springframework.web" level="info"/>
+    <logger name="com.ik.crm.fix.tools.mapper" level="info"/>
+</configuration>

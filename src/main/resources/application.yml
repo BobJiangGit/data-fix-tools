@@ -1,0 +1,32 @@
+server:
+    port: 8093
+    tomcat:
+        max-threads: 800
+        uri-encoding: UTF-8
+
+logging:
+    classpath: logback.xml
+
+spring:
+    http:
+        encoding.charset: UTF-8
+    datasource:
+        name: ikcrm
+        url: jdbc:mysql://rm-vy1ud5gu2599po844.mysql.rds.aliyuncs.com:3306/ikcrm_production?characterEncoding=utf8&autoReconnect=true
+        username: jusrc46ftp6c
+        password: Cb0688a52a46
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 100
+        initialSize: 2
+        maxWait: 60000
+        minIdle: 8
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 120000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 100
