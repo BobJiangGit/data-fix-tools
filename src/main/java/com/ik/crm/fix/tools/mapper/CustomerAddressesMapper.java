@@ -16,9 +16,25 @@ import java.util.List;
 */
 public interface CustomerAddressesMapper extends GenericMapper<CustomerAddresses, Integer> {
 
-    @Select("select id from customers where organization_id = #{orgId} and name = #{name} and (created_at between '2017-10-24 11:54:42' and '2017-10-25 02:55:50')")
+    @Select("select id from customers where organization_id = #{orgId} and name = #{name} " +
+            "and (created_at between '2017-10-24 11:54:42' and '2017-10-25 02:55:50')")
     List<Integer> getCustomerId(@Param("orgId") Integer orgId, @Param("name") String name);
 
-    @Select("select id from customer_addresses where addressable_id = #{custId} and addressable_type = 'Customer' and organization_id = #{orgId} and (created_at between '2017-10-24 11:54:42' and '2017-10-25 02:55:50') and created_at = updated_at limit 1")
+    @Select("select c.id from customers c " +
+            "left join customer_addresses ca on c.id = ca.addressable_id " +
+            "where c.organization_id = #{orgId} " +
+            "and c.created_at between '2017-10-24 11:54:42' and '2017-10-25 02:55:50' " +
+            "and c.name = #{name} " +
+            "and ca.id is null")
+    List<Integer> getSourceCustomer(@Param("orgId") Integer orgId, @Param("name") String name);
+
+    @Select("select id from customer_addresses where addressable_id = #{custId} and addressable_type = 'Customer' " +
+            "and organization_id = #{orgId} and (created_at between '2017-10-24 11:54:42' and '2017-10-25 02:55:50') " +
+            "and created_at = updated_at limit 1")
     Integer getCustomrAddressId(@Param("custId") Integer custId, @Param("orgId") Integer orgId);
+
+    @Select("select id from customer_addresses where addressable_type = 'Customer' and organization_id = #{orgId} " +
+            "and phone = #{phone} " +
+            "and created_at between '2017-10-24 11:54:42' and '2017-10-25 02:55:50' and created_at = updated_at")
+    List<Integer> getAddressIds(@Param("orgId") Integer orgId, @Param("phone") String phone);
 }

@@ -7,4 +7,10 @@ public interface FixDataService {
 
     void work(Integer orgId, String filePath);
 
+    void fix(Integer orgId, String path);
+
+    void batch();
+
+    void save();
+
 }

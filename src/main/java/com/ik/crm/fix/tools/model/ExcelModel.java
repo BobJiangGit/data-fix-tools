@@ -15,6 +15,25 @@ public class ExcelModel {
     @MapperCell(cellName = "链接")
     private String url;
 
+    @MapperCell(cellName = "客户名称(必填)")
+    private String name1;
+
+    @MapperCell(cellName = "客户名店铺名(必填)")
+    private String name2;
+
+    @MapperCell(cellName = "姓名(必填)")
+    private String name3;
+
+    @MapperCell(cellName = "手机")
+    private String phone;
+
+    @MapperCell(cellName = "手机(必填)")
+    private String phone2;
+
+    private String realName;
+
+    private String realPhone;
+
     private Integer wrongId;
 
     public String getName() {
@@ -53,13 +72,71 @@ public class ExcelModel {
         this.wrongId = wrongId;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-                "orgId=" + orgId +
-                ", name='" + name + '\'' +
-                ", url='" + url + '\'' +
-                ", wrongId=" + getWrongId() +
-                '}';
+    public String getName1() {
+        return name1;
+    }
+
+    public void setName1(String name1) {
+        this.name1 = name1;
+    }
+
+    public String getName2() {
+        return name2;
+    }
+
+    public void setName2(String name2) {
+        this.name2 = name2;
+    }
+
+    public String getName3() {
+        return name3;
+    }
+
+    public void setName3(String name3) {
+        this.name3 = name3;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPhone2() {
+        return phone2;
+    }
+
+    public void setPhone2(String phone2) {
+        this.phone2 = phone2;
+    }
+
+    public String getRealName() {
+        if (name1 != null && !"".equals(name1)) {
+            return name1;
+        } else if (name2 != null && !"".equals(name2)) {
+            return name2;
+        } else if (name3 != null && !"".equals(name3)) {
+            return name3;
+        }
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public String getRealPhone() {
+        if (phone != null && !"".equals(phone) && !"null".equals(phone)) {
+            return phone;
+        } else if (phone2 != null && !"".equals(phone2) && !"null".equals(phone2)) {
+            return phone2;
+        }
+        return realPhone;
+    }
+
+    public void setRealPhone(String realPhone) {
+        this.realPhone = realPhone;
     }
 }

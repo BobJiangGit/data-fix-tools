@@ -24,7 +24,8 @@ public class FixWorker {
     public void work() {
         ExecutorService executor = Executors.newFixedThreadPool(5);
 
-        String list = JsonLoader.loadFile("import_list.txt");
+        //import_list.txt
+        String list = JsonLoader.loadFile("import_source.txt");
         String[] array = list.split("\n");
 
         for (String value : array) {
@@ -42,9 +43,9 @@ public class FixWorker {
     }
 
     public void one() {
-        Integer orgId = 111050;
-        String path = "https://o5v2o194t.qnssl.com/72a3b512-9e64-4efa-8718-dfd9676f32bf/import_records_20171025.xlsx";
-        fixDataService.work(orgId, path);
+//        Integer orgId = 111050;
+//        String path = "https://o5v2o194t.qnssl.com/72a3b512-9e64-4efa-8718-dfd9676f32bf/import_records_20171025.xlsx";
+//        fixDataService.work(orgId, path);
     }
 
     public class FixThread implements Runnable {
@@ -60,7 +61,7 @@ public class FixWorker {
         @Override
         public void run() {
             try {
-                fixDataService.work(orgId, path);
+                fixDataService.fix(orgId, path);
             } catch (Exception e) {
                 log.error("fix worker error! orgId: " + orgId, e);
             }
